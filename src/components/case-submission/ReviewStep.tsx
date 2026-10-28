@@ -15,7 +15,7 @@ export function ReviewStep({ draft, onEdit }: Props) {
   const selection = summarizeSelection(r);
 
   return (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-1 gap-4">
       <ReviewSection title="Practice & case details" step={0} draft={draft} onEdit={onEdit}>
         <Row label="Practice">{p.practiceName}</Row>
         <Row label="Dentist">{p.dentistName}</Row>

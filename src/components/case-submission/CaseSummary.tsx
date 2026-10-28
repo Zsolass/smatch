@@ -6,11 +6,11 @@ import { formatBytes } from "@/lib/files";
 import { StatusDot } from "./ReviewStep";
 
 /** Live summary: a sticky sidebar on desktop, a collapsible panel on mobile. */
-export function CaseSummary({ draft, step }: { draft: CaseDraft; step: number }) {
+export function CaseSummary({ draft, step, variant }: { draft: CaseDraft; step: number; variant: "panel" | "sidebar" }) {
   const ready = [0, 1, 2].filter((s) => Object.keys(validateStep(s, draft)).length === 0).length;
-  return (
-    <>
-      <details className="group rounded-[var(--radius-card)] border border-line bg-white lg:hidden">
+  if (variant === "panel") {
+    return (
+      <details className="group rounded-[var(--radius-card)] border border-line bg-white">
         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 [&::-webkit-details-marker]:hidden">
           <span>
             <span className="block text-sm font-semibold text-ink">Case summary</span>
@@ -30,8 +30,10 @@ export function CaseSummary({ draft, step }: { draft: CaseDraft; step: number })
           <SummaryBody draft={draft} />
         </div>
       </details>
-
-      <aside aria-label="Case summary" className="hidden rounded-[var(--radius-card)] border border-line bg-white p-5 shadow-[var(--shadow-card)] lg:block">
+    );
+  }
+  return (
+      <aside aria-label="Case summary" className="rounded-[var(--radius-card)] border border-line bg-white p-5 shadow-[var(--shadow-card)]">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-ink">Case summary</h2>
           <span className="rounded-full bg-paper px-2.5 py-0.5 text-xs font-medium text-ink-soft">Demo</span>
@@ -41,7 +43,6 @@ export function CaseSummary({ draft, step }: { draft: CaseDraft; step: number })
           <SummaryBody draft={draft} />
         </div>
       </aside>
-    </>
   );
 }
 
@@ -53,7 +54,7 @@ function SummaryBody({ draft }: { draft: CaseDraft }) {
   const total = files.reduce((sum, f) => sum + f.file.size, 0);
 
   return (
-    <div className="grid gap-4 text-sm">
+    <div className="grid min-w-0 grid-cols-1 gap-4 text-sm">
       <Block title="Practice & case" ok={ok(0)}>
         <Line label="Practice" value={p.practiceName} />
         <Line label="Dentist" value={p.dentistName} />
@@ -68,7 +69,7 @@ function SummaryBody({ draft }: { draft: CaseDraft }) {
           <div className="mt-1.5 rounded-lg bg-paper px-3 py-2">
             <p className="font-medium text-ink">{selection.heading}</p>
             {selection.lines.length > 0 && type?.selection === "bridge" && (
-              <ul className="mt-1 grid gap-1 text-xs text-ink-soft">
+              <ul className="mt-1 grid grid-cols-1 gap-1 text-xs text-ink-soft">
                 {selection.lines.map((l) => (
                   <li key={l.label}>
                     <span className="font-medium text-ink">{l.label}</span>
@@ -85,7 +86,7 @@ function SummaryBody({ draft }: { draft: CaseDraft }) {
       <Block title="Files & instructions" ok={ok(2)}>
         <Line label="Files" value={files.length ? `${files.length} · ${formatBytes(total)}` : ""} />
         {files.length > 0 && (
-          <ul className="mt-1 grid gap-0.5 text-xs text-ink-soft">
+          <ul className="mt-1 grid grid-cols-1 gap-0.5 text-xs text-ink-soft">
             {files.slice(0, 6).map((f) => (
               <li key={f.id} className="truncate">
                 {f.category}: {f.file.name}
@@ -108,7 +109,7 @@ function Block({ title, ok, children }: { title: string; ok: boolean; children: 
         <StatusDot ok={ok} />
         {title}
       </h3>
-      <div className="grid min-w-0 gap-0.5 pl-7">{children}</div>
+      <div className="grid min-w-0 grid-cols-1 gap-0.5 pl-7">{children}</div>
     </section>
   );
 }

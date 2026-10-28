@@ -213,7 +213,7 @@ export function InquiryForm() {
         <Field id={id("labName")} label="Laboratory name" required error={showError("labName")}>
           <input {...inputProps(id("labName"), showError("labName"))} autoComplete="organization" value={values.labName} onChange={(e) => update("labName", e.target.value)} onBlur={() => blur("labName")} maxLength={120} />
         </Field>
-        <Field id={id("companyName")} label="Company / Legal name" hint="If different from the lab name" error={showError("companyName")}>
+        <Field id={id("companyName")} label="Company / Legal name" hint="Optional" error={showError("companyName")}>
           <input {...inputProps(id("companyName"), showError("companyName"))} value={values.companyName} onChange={(e) => update("companyName", e.target.value)} onBlur={() => blur("companyName")} maxLength={160} />
         </Field>
         <Field id={id("contactName")} label="Contact person" required error={showError("contactName")}>

@@ -12,5 +12,5 @@
     "noUncheckedIndexedAccess": true,
     "paths": { "@/*": ["../src/*"] }
   },
-  "include": ["./**/*.ts", "../src/lib/inquiry/**/*.ts", "../src/config/site.ts"]
+  "include": ["./**/*.ts", "../src/lib/inquiry/**/*.ts", "../src/config/site.ts", "../tests/worker/**/*.ts"]
 }

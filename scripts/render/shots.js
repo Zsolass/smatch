@@ -292,7 +292,7 @@ export const shots = {
     s1.rotation.y = -0.4;
     st.scene.add(s1);
     st.ground(0, 0.35);
-    aim(st, [12, 26, 70], [0, 12.5, 0]);
+    aim(st, [12, 28, 82], [0, 13.5, 0]);
     return st.render();
   },
   async "case-veneers"() {

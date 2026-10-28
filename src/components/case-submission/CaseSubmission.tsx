@@ -160,9 +160,9 @@ export function CaseSubmission({ adapter = demoAdapter }: { adapter?: CaseSubmis
 
       <Stepper step={step} furthest={state.furthest} draft={draft} onSelect={(s) => goto(s)} />
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-8">
+      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-8">
         <div className="lg:hidden">
-          <CaseSummary draft={draft} step={step} />
+          <CaseSummary draft={draft} step={step} variant="panel" />
         </div>
 
         <div className="min-w-0">
@@ -249,7 +249,7 @@ export function CaseSubmission({ adapter = demoAdapter }: { adapter?: CaseSubmis
 
         <div className="hidden lg:block">
           <div className="sticky top-[calc(var(--header-height)+1.5rem)]">
-            <CaseSummary draft={draft} step={step} />
+            <CaseSummary draft={draft} step={step} variant="sidebar" />
           </div>
         </div>
       </div>

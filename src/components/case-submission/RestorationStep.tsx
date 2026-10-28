@@ -42,7 +42,7 @@ export function RestorationStep({ restoration: r, errors, notice, dispatch }: Pr
   const selectionError = errors.selection;
 
   return (
-    <div className="grid gap-8">
+    <div className="grid grid-cols-1 gap-8">
       <fieldset>
         <legend className="mb-3 text-sm font-medium text-ink">
           Type of work <span className="text-accent" aria-hidden="true">*</span>

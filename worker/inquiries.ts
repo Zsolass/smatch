@@ -1,5 +1,6 @@
 // POST /api/inquiries  – store a website quote request and notify Smatch
 // GET  /api/inquiries  – list stored inquiries (admin token required)
+// POST /api/inquiries/retry-notifications – resend pending notifications (admin)
 
 import { siteConfig } from "../src/config/site";
 import { coerceInquiry, validateInquiry } from "../src/lib/inquiry/schema";
@@ -179,15 +180,26 @@ export async function listInquiriesHandler(request: Request, env: Env): Promise<
   });
 }
 
+/** POST /api/inquiries/retry-notifications – run the cron retry now (admin). */
+export async function retryNotificationsHandler(request: Request, env: Env): Promise<Response> {
+  if (!env.ADMIN_TOKEN) return fail(503, "admin_not_configured", "Admin access is not configured (set ADMIN_TOKEN).");
+  if (!(await isAdmin(request, env))) return fail(401, "unauthorized", "A valid admin token is required.");
+  const result = await retryNotifications(env);
+  return json({ ok: true, ...result });
+}
+
 /** Cron: resend notifications that failed or were stored before email was configured. */
-export async function retryNotifications(env: Env): Promise<void> {
-  if (!env.DB) return;
+export async function retryNotifications(env: Env): Promise<{ attempted: number; sent: number }> {
+  if (!env.DB) return { attempted: 0, sent: 0 };
   await ensureSchema(env.DB);
-  // Skip very recent rows: their first delivery may still be running.
-  const pending = await listForRetry(env.DB, new Date(Date.now() - 2 * 60 * 1000).toISOString(), MAX_ATTEMPTS);
+  // Skip rows from the last minute: their first delivery (at most 30 s of
+  // waitUntil) may still be running.
+  const pending = await listForRetry(env.DB, new Date(Date.now() - 60 * 1000).toISOString(), MAX_ATTEMPTS);
   if (pending.length && !notifyConfig(env)) {
     console.error(`[inquiries] ${pending.length} inquiries are waiting for notification settings.`);
-    return;
+    return { attempted: 0, sent: 0 };
   }
-  for (const record of pending) await deliver(env, record, [0]);
+  let sent = 0;
+  for (const record of pending) if ((await deliver(env, record, [0])) === "sent") sent += 1;
+  return { attempted: pending.length, sent };
 }

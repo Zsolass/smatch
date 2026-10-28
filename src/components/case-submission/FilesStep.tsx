@@ -66,7 +66,7 @@ export function FilesStep({ files, instructions, errors, dispatch, onRemove }: P
   const total = files.reduce((sum, f) => sum + f.file.size, 0);
 
   return (
-    <div className="grid gap-6">
+    <div className="grid grid-cols-1 gap-6">
       <div
         onDragEnter={(e) => {
           e.preventDefault();
@@ -82,6 +82,7 @@ export function FilesStep({ files, instructions, errors, dispatch, onRemove }: P
           if (depth.current === 0) setDragging(false);
         }}
         onDrop={onDrop}
+        data-testid="dropzone"
         data-dragging={dragging || undefined}
         className={`relative flex flex-col items-center justify-center rounded-[var(--radius-card)] border-2 border-dashed px-6 py-10 text-center transition-colors sm:py-14 ${
           dragging ? "border-accent bg-accent-soft/70" : errors.files ? "border-danger/60 bg-danger-soft/40" : "border-ink/20 bg-white hover:border-accent/50"
