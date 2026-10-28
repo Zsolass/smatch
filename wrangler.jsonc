@@ -1,17 +1,28 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  // Must match the Worker project name in the Cloudflare dashboard.
   "name": "labsites",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-10-01",
-  // Static site: everything in ./public is served as-is.
+  // `next build` exports the site to ./out before every deploy, preview and `wrangler dev`.
+  "build": { "command": "npm run build", "watch_dir": ["src", "public"] },
   "assets": {
-    "directory": "./public",
-    "not_found_handling": "404-page"
+    "directory": "./out",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Only the API runs through the Worker; every other path is served straight from ./out.
+    "run_worker_first": ["/api/*"]
   },
-  // Attaches labsites.smatch.cloud on deploy (Cloudflare creates the DNS record
-  // and certificate). Requires the smatch.cloud zone to be in the same account.
-  "routes": [
-    { "pattern": "labsites.smatch.cloud", "custom_domain": true }
-  ],
+  // Attaches the custom domain on deploy (Cloudflare creates the DNS record and
+  // certificate). Requires the smatch.cloud zone to be in the same account.
+  "routes": [{ "pattern": "labsites.smatch.cloud", "custom_domain": true }],
   "workers_dev": true,
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
+  // Inquiry storage. Wrangler creates the database on the first deploy.
+  "d1_databases": [{ "binding": "DB", "database_name": "labsite-inquiries" }],
+  "ratelimits": [
+    { "name": "INQUIRY_RATE_LIMITER", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } }
+  ],
+  // Retries inquiry notifications that failed or were saved before email was configured.
+  "triggers": { "crons": ["*/15 * * * *"] }
 }

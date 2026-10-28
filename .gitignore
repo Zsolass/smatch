@@ -1,6 +1,12 @@
 node_modules/
+.next/
+out/
 .wrangler/
+next-env.d.ts
+*.tsbuildinfo
 .dev.vars*
 !.dev.vars.example
 .env*
+test-results/
 .DS_Store
+scripts/render/out/
