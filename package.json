@@ -1,0 +1,12 @@
+{
+  "name": "labsites",
+  "private": true,
+  "description": "Marketing website for LabSites: websites for dental labs, served at labsites.smatch.cloud",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.154.0"
+  }
+}

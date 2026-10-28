@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "labsites",
+  "compatibility_date": "2026-10-01",
+  // Static site: everything in ./public is served as-is.
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  },
+  // Attaches labsites.smatch.cloud on deploy (Cloudflare creates the DNS record
+  // and certificate). Requires the smatch.cloud zone to be in the same account.
+  "routes": [
+    { "pattern": "labsites.smatch.cloud", "custom_domain": true }
+  ],
+  "workers_dev": true,
+  "observability": { "enabled": true }
+}
