@@ -291,10 +291,17 @@ function BridgeList({ restoration: r, errors, dispatch }: { restoration: Restora
         return (
           <li key={b.id} id={`case-bridge-${b.id}`} tabIndex={-1} className={`rounded-xl border p-3 ${active ? "border-accent bg-accent-soft/40" : "border-line bg-white"} ${error ? "border-danger" : ""}`}>
             <div className="flex items-center justify-between gap-2">
-              <button type="button" onClick={() => dispatch({ type: "selectBridge", bridgeId: b.id })} className="text-left text-sm font-semibold text-ink" aria-pressed={active}>
-                Bridge {n}
-                {b.units.length > 0 && <span className="font-normal text-ink-soft"> · {spanLabel(b.units.map((u) => u.tooth))}</span>}
-                {active && <span className="ml-2 rounded-full bg-accent px-2 py-0.5 text-[0.68rem] font-medium text-white">Editing</span>}
+              <button
+                type="button"
+                onClick={() => dispatch({ type: "selectBridge", bridgeId: b.id })}
+                className="flex flex-wrap items-center gap-x-2 gap-y-1 text-left text-sm font-semibold text-ink"
+                aria-pressed={active}
+              >
+                <span className="whitespace-nowrap">
+                  Bridge {n}
+                  {b.units.length > 0 && <span className="font-normal text-ink-soft"> · {spanLabel(b.units.map((u) => u.tooth))}</span>}
+                </span>
+                {active && <span className="rounded-full bg-accent px-2 py-0.5 text-[0.68rem] font-medium text-white">Editing</span>}
               </button>
               <button type="button" onClick={() => dispatch({ type: "removeBridge", bridgeId: b.id })} className="text-xs text-ink-soft underline-offset-2 hover:text-danger hover:underline" aria-label={`Remove bridge ${n}`}>
                 Remove
