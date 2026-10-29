@@ -1,12 +1,9 @@
 # Copy to .dev.vars for `npm run preview` (wrangler dev). In production set
 # these as Worker secrets: Workers & Pages → labsites → Settings → Variables and Secrets.
+# The recipient and sender (INQUIRY_NOTIFY_TO / INQUIRY_NOTIFY_FROM) are in wrangler.jsonc.
 
 # Email notifications for new inquiries (https://resend.com)
 RESEND_API_KEY=
-# Comma-separated list of Smatch addresses that receive inquiries
-INQUIRY_NOTIFY_TO=
-# A sender on a domain verified in Resend, e.g. Smatch Labsite <labsite@smatch.cloud>
-INQUIRY_NOTIFY_FROM=
 # Optional: another Resend-compatible API base URL
 # RESEND_API_URL=https://api.resend.com
 

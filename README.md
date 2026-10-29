@@ -57,18 +57,28 @@ Cloudflare Workers Builds deploys the GitHub repo (Worker project `labsites`):
 The `smatch.cloud` zone must be active in the same Cloudflare account for the
 custom domain to attach.
 
-### Settings (Worker secrets)
+### Email settings
+
+Notifications go to `office@smatch.cloud` (Google Workspace) and are sent
+from `Smatch Labsite <labsite@smatch.cloud>` through
+[Resend](https://resend.com). Both addresses are `vars` in `wrangler.jsonc`.
+The sender needs no mailbox: replies go to the lab that sent the inquiry.
+
+Resend authenticates `smatch.cloud` with DNS records on subdomains
+(`resend._domainkey`, `send`), so Google Workspace mail keeps working
+unchanged.
 
 Set these under **Workers & Pages → labsites → Settings → Variables and
-Secrets** with type **Secret**, so deploys don't overwrite them:
+Secrets** with type **Secret**:
 
 | Name | Required | Purpose |
 | --- | --- | --- |
-| `RESEND_API_KEY` | for email | API key from [Resend](https://resend.com) |
-| `INQUIRY_NOTIFY_FROM` | for email | Sender on a domain verified in Resend, e.g. `Smatch Labsite <labsite@smatch.cloud>` |
-| `INQUIRY_NOTIFY_TO` | for email | Smatch recipient address(es), comma-separated |
-| `ADMIN_TOKEN` | to read inquiries | Long random string for the admin endpoints |
+| `RESEND_API_KEY` | for email | Resend API key with sending access for `smatch.cloud` |
+| `ADMIN_TOKEN` | to read inquiries | Long random string for the admin endpoints (`openssl rand -hex 32`) |
 | `RESEND_API_URL` | no | Alternative API base URL (default `https://api.resend.com`) |
+
+Don't add `INQUIRY_NOTIFY_TO` or `INQUIRY_NOTIFY_FROM` in the dashboard.
+They come from `wrangler.jsonc`, and each deploy replaces dashboard values.
 
 `GET /api/health` shows whether storage and notifications are configured.
 
@@ -193,6 +203,3 @@ backend can reuse them.
 - Only FDI numbering. Universal numbering, STL preview, multiple languages
   and live branding previews are later extensions.
 - The images are illustrative renders, not photographs of real work.
-- The privacy notice names Smatch LLC as data controller but has no privacy
-  email yet, so it tells people to reply to Smatch's email instead. Set
-  `privacy.contactEmail` in `src/config/site.ts` to add one.
