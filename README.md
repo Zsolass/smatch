@@ -193,5 +193,6 @@ backend can reuse them.
 - Only FDI numbering. Universal numbering, STL preview, multiple languages
   and live branding previews are later extensions.
 - The images are illustrative renders, not photographs of real work.
-- Before launch, the privacy notice needs Smatch's legal entity and a
-  contact address (`src/config/site.ts`).
+- The privacy notice names Smatch LLC as data controller but has no privacy
+  email yet, so it tells people to reply to Smatch's email instead. Set
+  `privacy.contactEmail` in `src/config/site.ts` to add one.

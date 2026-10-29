@@ -29,6 +29,18 @@ export default function PrivacyPage() {
             </p>
           </section>
           <section>
+            <h2>Who we are</h2>
+            <p>The data controller is:</p>
+            <address className="mt-2 not-italic text-ink">
+              <span className="block font-medium">{privacy.controller}</span>
+              {privacy.address.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </address>
+          </section>
+          <section>
             <h2>What we collect</h2>
             <p>
               The details you enter: laboratory name, company name (optional), contact person, work email, phone number, country, state or region, city,

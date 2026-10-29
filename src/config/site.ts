@@ -31,8 +31,9 @@ export const siteConfig = {
   },
 
   privacy: {
-    /** Data controller shown on /privacy. Fill in the legal entity before launch. */
-    controller: "Smatch",
+    /** Data controller shown on /privacy. */
+    controller: "Smatch LLC",
+    address: ["30 N Gould St, Ste N", "Sheridan, WY 82801", "United States"],
     /** Optional public privacy contact address; leave null to point people to the reply email instead. */
     contactEmail: null as string | null,
     /** How long inquiries are kept, in months. */
