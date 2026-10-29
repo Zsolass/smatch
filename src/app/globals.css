@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+/* Brand colours come from src/config/lab.ts via CSS variables set in layout.tsx. */
+@theme inline {
+  --color-paper: var(--lab-paper);
+  --color-paper-deep: var(--lab-paper-deep);
+  --color-ink: var(--lab-ink);
+  --color-ink-soft: var(--lab-ink-soft);
+  --color-line: var(--lab-line);
+  --color-accent: var(--lab-accent);
+  --color-accent-strong: var(--lab-accent-strong);
+  --color-accent-soft: var(--lab-accent-soft);
+  --color-highlight: var(--lab-highlight);
+  --color-night: var(--lab-night);
+  --color-night-soft: var(--lab-night-soft);
+  --color-warm: var(--lab-warm);
+  --color-danger: #b42318;
+  --color-danger-soft: #fdecea;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 2px rgb(16 24 28 / 0.04), 0 8px 24px -12px rgb(16 24 28 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(16 24 28 / 0.05), 0 24px 48px -20px rgb(16 24 28 / 0.25);
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+:root {
+  --header-height: 4.25rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchored sections (e.g. /#inquire) land below the sticky header. */
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-highlight);
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+/* Serif accent words in headings. */
+.accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Reveal-on-scroll; content stays visible without JS and with reduced motion. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+dialog::backdrop {
+  background: rgb(9 20 23 / 0.62);
+  backdrop-filter: blur(4px);
+}
+
+dialog[open] {
+  animation: dialog-in 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Odontogram ------------------------------------------------------------ */
+.tooth {
+  cursor: pointer;
+  outline: none;
+}
+.tooth .shape {
+  fill: #fff;
+  stroke: #b8b0a2;
+  stroke-width: 1.2;
+  transition:
+    fill 0.15s,
+    stroke 0.15s;
+}
+.tooth .fissure {
+  fill: none;
+  stroke: #d2cbbf;
+  stroke-width: 1;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .tooth:hover .shape {
+    fill: var(--color-accent-soft);
+    stroke: var(--color-accent);
+  }
+}
+.tooth[data-state="selected"] .shape,
+.tooth[data-state="abutment"] .shape {
+  fill: var(--color-accent);
+  stroke: var(--color-accent-strong);
+}
+.tooth[data-state="pontic"] .shape {
+  fill: url(#pontic-hatch);
+  stroke: var(--color-accent-strong);
+  stroke-width: 1.6;
+  stroke-dasharray: 3.5 2.5;
+}
+.tooth[data-state="arch"] .shape {
+  fill: var(--color-accent-soft);
+  stroke: var(--color-accent);
+}
+.tooth[data-state="selected"] .fissure,
+.tooth[data-state="abutment"] .fissure {
+  stroke: rgb(255 255 255 / 0.5);
+}
+.tooth[data-muted="true"] .shape {
+  opacity: 0.5;
+}
+.tooth-label {
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--color-ink-soft);
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+.tooth-label[data-active="true"] {
+  fill: var(--color-accent-strong);
+  font-weight: 700;
+}
+.tooth-focus {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+  pointer-events: none;
+}

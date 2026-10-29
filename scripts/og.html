@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Inter"; src: url("/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Instrument"; font-style: italic; src: url("/node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2") format("woff2"); }
+  * { margin: 0; box-sizing: border-box; }
+  body { background: transparent; }
+  #og { width: 1200px; height: 630px; position: relative; overflow: hidden; background: #0e1f23; color: #fff; font-family: Inter, sans-serif; }
+  #og .bg { position: absolute; right: -40px; top: -40px; width: 710px; height: 710px; object-fit: cover; }
+  #og .fade { position: absolute; inset: 0; background: linear-gradient(90deg, #0e1f23 38%, rgba(14,31,35,0.65) 58%, rgba(14,31,35,0) 80%); }
+  #og .text { position: absolute; left: 72px; top: 0; bottom: 0; width: 620px; display: flex; flex-direction: column; justify-content: center; }
+  .brand { display: flex; align-items: center; gap: 14px; font-size: 26px; font-weight: 600; letter-spacing: -0.01em; }
+  .brand img { width: 52px; height: 52px; }
+  h1 { margin-top: 44px; font-size: 76px; line-height: 1.02; letter-spacing: -0.035em; font-weight: 600; }
+  em { font-family: Instrument, serif; font-weight: 400; letter-spacing: -0.01em; }
+  p { margin-top: 30px; font-size: 25px; color: rgba(255,255,255,0.72); }
+  .pill { margin-top: 36px; display: inline-flex; align-self: flex-start; gap: 10px; align-items: center; padding: 10px 18px; border-radius: 999px; background: rgba(255,255,255,0.1); font-size: 20px; color: rgba(255,255,255,0.85); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: #67d6d3; }
+  #icon { width: 180px; height: 180px; background: #0d6b70; display: grid; place-items: center; }
+</style>
+</head>
+<body>
+  <div id="og">
+    <img class="bg" src="/public/images/hero-1400.webp" alt="">
+    <div class="fade"></div>
+    <div class="text">
+      <div class="brand"><img src="/public/lab/logo-mark.svg" alt="">Smatch Demo Lab</div>
+      <h1>Precision <em>crafted</em>.<br>Digitally <em>connected</em>.</h1>
+      <p>A demo dental lab website with online case submission.</p>
+      <span class="pill"><span class="dot"></span>Demo website by Smatch</span>
+    </div>
+  </div>
+  <div id="icon">
+    <svg viewBox="8 6 24 28" width="118" height="138"><path d="M10.5 15.2c0-3.6 2.9-6.2 6-6.2 1.6 0 2.6.7 3.5 1.3.9-.6 1.9-1.3 3.5-1.3 3.1 0 6 2.6 6 6.2 0 3.6-1.2 5.8-1.9 8.9-.7 3.1-1 8.9-3.1 8.9-1.9 0-2-4-2.7-6.6-.4-1.2-1-1.7-1.8-1.7s-1.4.5-1.8 1.7c-.7 2.6-.8 6.6-2.7 6.6-2.1 0-2.4-5.8-3.1-8.9-.7-3.1-1.9-5.3-1.9-8.9Z" fill="#fff"/><path d="M16.2 13.4c1.4-.5 2.6 0 3.8.9" stroke="#67d6d3" stroke-width="1.6" stroke-linecap="round" fill="none"/></svg>
+  </div>
+</body>
+</html>
