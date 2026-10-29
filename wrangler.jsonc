@@ -30,5 +30,9 @@
   "vars": {
     "INQUIRY_NOTIFY_TO": "office@smatch.cloud",
     "INQUIRY_NOTIFY_FROM": "Smatch Labsite <labsite@smatch.cloud>"
-  }
+  },
+  // Branch previews (`wrangler preview`, run by Workers Builds for non-main
+  // branches) must have this block. Previews get no inquiry database, so the
+  // Inquire form on a preview says it isn't set up and never emails the office.
+  "previews": {}
 }

@@ -50,7 +50,9 @@ Cloudflare Workers Builds deploys the GitHub repo (Worker project `labsites`):
 - Pushes to `main` run `npx wrangler deploy`. Wrangler runs `npm run build`
   first (configured in `wrangler.jsonc`), uploads `out/` and the Worker, and
   attaches the custom domain from `routes`.
-- Other branches get a preview URL.
+- Other branches get a preview URL (`npx wrangler preview`, which needs the
+  `previews` block in `wrangler.jsonc`). Previews have no inquiry database,
+  so their Inquire form reports that it isn't set up.
 - The first deploy creates the D1 database `labsite-inquiries`
   automatically. The `inquiries` table is created on first use.
 
