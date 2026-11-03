@@ -9,13 +9,13 @@ owners to the demo at https://labsites.smatch.cloud and to its Inquire form
 Pick one; the first is the recommended default.
 
 1. What your lab's website could look like (live demo)
-2. Give dentists a reason to send you the next case
-3. A new website for your dental lab: one-time $999
+2. Launch price for 5 dental labs: your new website for $999
+3. Give dentists a reason to send you the next case
 
 **Preview text** (already hidden at the top of the HTML, repeat it if
 GoHighLevel has its own field for it):
 
-> Click through a live demo dental lab website with online case submission. Yours, personalised, for a one-time $999.
+> Click through a live demo dental lab website with online case submission. Yours, personalised, for a one-time $999, for our first 5 customers only.
 
 ## Pasting into GoHighLevel
 
@@ -27,6 +27,8 @@ GoHighLevel has its own field for it):
   merge tag. Check it against GoHighLevel's merge-field list; if GoHighLevel
   adds its own unsubscribe footer, delete that line instead.
 - Send a test to yourself (Gmail, Outlook and a phone) before scheduling.
+- The offer is limited to the first 5 customers, and the email can't count
+  them. Stop or change the campaign once the fifth lab has signed.
 
 ## Images
 
