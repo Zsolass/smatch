@@ -32,7 +32,20 @@ export function notifyConfig(env: Env): NotifyConfig | null {
   return { apiKey: env.RESEND_API_KEY, apiUrl: (env.RESEND_API_URL || "https://api.resend.com").replace(/\/$/, ""), from: env.INQUIRY_NOTIFY_FROM, to };
 }
 
-export const MISSING_CONFIG_MESSAGE = "Inquiry notifications are not configured: set RESEND_API_KEY, INQUIRY_NOTIFY_FROM and INQUIRY_NOTIFY_TO.";
+/** The email settings this deployment lacks, so the error names only those. */
+export function missingSettings(env: Env): string[] {
+  const missing: string[] = [];
+  if (!env.RESEND_API_KEY) missing.push("RESEND_API_KEY");
+  if (!env.INQUIRY_NOTIFY_FROM) missing.push("INQUIRY_NOTIFY_FROM");
+  if (!(env.INQUIRY_NOTIFY_TO ?? "").split(",").some((s) => s.trim())) missing.push("INQUIRY_NOTIFY_TO");
+  return missing;
+}
+
+export function missingConfigMessage(env: Env): string {
+  const names = missingSettings(env);
+  const list = names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names.at(-1)}` : names[0];
+  return `Inquiry notifications are not configured: set ${list}.`;
+}
 
 function countryName(code: string): string {
   try {
@@ -135,8 +148,9 @@ export async function deliver(env: Env, record: InquiryRecord, delays: number[] 
   const db = env.DB!;
   const config = notifyConfig(env);
   if (!config) {
-    console.error(`[inquiries] ${MISSING_CONFIG_MESSAGE} Inquiry ${record.id} is stored and will be sent once configured.`);
-    await updateNotification(db, record.id, { status: "not_configured", attempts: record.notification_attempts, error: MISSING_CONFIG_MESSAGE });
+    const missing = missingConfigMessage(env);
+    console.error(`[inquiries] ${missing} Inquiry ${record.id} is stored and will be sent once configured.`);
+    await updateNotification(db, record.id, { status: "not_configured", attempts: record.notification_attempts, error: missing });
     return "not_configured";
   }
   const message = composeEmail(record, config);

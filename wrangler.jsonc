@@ -29,7 +29,8 @@
   // and are set in the dashboard, not here.
   "vars": {
     "INQUIRY_NOTIFY_TO": "office@smatch.cloud",
-    "INQUIRY_NOTIFY_FROM": "Smatch Labsite <labsite@smatch.cloud>"
+    // notify.smatch.cloud is the domain verified in Resend (send.smatch.cloud is taken).
+    "INQUIRY_NOTIFY_FROM": "Smatch Labsite <labsite@notify.smatch.cloud>"
   },
   // Branch previews (`wrangler preview`, run by Workers Builds for non-main
   // branches) must have this block. Previews get no inquiry database, so the
