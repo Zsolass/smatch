@@ -62,13 +62,14 @@ custom domain to attach.
 ### Email settings
 
 Notifications go to `office@smatch.cloud` (Google Workspace) and are sent
-from `Smatch Labsite <labsite@smatch.cloud>` through
+from `Smatch Labsite <labsite@notify.smatch.cloud>` through
 [Resend](https://resend.com). Both addresses are `vars` in `wrangler.jsonc`.
 The sender needs no mailbox: replies go to the lab that sent the inquiry.
 
-Resend authenticates `smatch.cloud` with DNS records on subdomains
-(`resend._domainkey`, `send`), so Google Workspace mail keeps working
-unchanged.
+The sending domain in Resend is the subdomain `notify.smatch.cloud`, so its
+DNS records (`resend._domainkey.notify`, `send.notify`, …) can't clash with
+Google Workspace or with the existing `send.smatch.cloud` records that
+another tool (LeadConnector/Mailgun) uses.
 
 Set these under **Workers & Pages → labsites → Settings → Variables and
 Secrets** with type **Secret**:
