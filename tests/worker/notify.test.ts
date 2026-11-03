@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { InquiryRecord } from "../../worker/db";
-import { composeEmail } from "../../worker/notify";
+import type { Env } from "../../worker/env";
+import { composeEmail, missingConfigMessage } from "../../worker/notify";
 
 describe("notification email", () => {
   const record: InquiryRecord = {
@@ -41,5 +42,15 @@ describe("notification email", () => {
     expect(email.subject).not.toMatch(/[\r\n]/);
     expect(email.html).not.toContain("<script>");
     expect(email.html).toContain("&lt;script&gt;");
+  });
+});
+
+describe("missing email settings", () => {
+  it("names only the settings this deployment lacks", () => {
+    const env = { INQUIRY_NOTIFY_TO: "office@example.com", INQUIRY_NOTIFY_FROM: "Test <test@example.com>" } as Env;
+    expect(missingConfigMessage(env)).toBe("Inquiry notifications are not configured: set RESEND_API_KEY.");
+    expect(missingConfigMessage({ INQUIRY_NOTIFY_TO: " , " } as Env)).toBe(
+      "Inquiry notifications are not configured: set RESEND_API_KEY, INQUIRY_NOTIFY_FROM and INQUIRY_NOTIFY_TO.",
+    );
   });
 });
