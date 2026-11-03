@@ -71,12 +71,15 @@ DNS records (`resend._domainkey.notify`, `send.notify`, …) can't clash with
 Google Workspace or with the existing `send.smatch.cloud` records that
 another tool (LeadConnector/Mailgun) uses.
 
-Set these under **Workers & Pages → labsites → Settings → Variables and
-Secrets** with type **Secret**:
+Set these under **Workers & Pages → labsites → Settings → Runtime variables
+and secrets** (the section that lists `INQUIRY_NOTIFY_TO` and
+`INQUIRY_NOTIFY_FROM`) with type **Secret**, then click **Deploy**. Don't
+use **Settings → Build → Variables and secrets**: values there only exist
+while Cloudflare builds the site, not while it runs.
 
 | Name | Required | Purpose |
 | --- | --- | --- |
-| `RESEND_API_KEY` | for email | Resend API key with sending access for `smatch.cloud` |
+| `RESEND_API_KEY` | for email | Resend API key with sending access for `notify.smatch.cloud` |
 | `ADMIN_TOKEN` | to read inquiries | Long random string for the admin endpoints (`openssl rand -hex 32`) |
 | `RESEND_API_URL` | no | Alternative API base URL (default `https://api.resend.com`) |
 
