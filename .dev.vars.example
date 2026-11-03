@@ -1,5 +1,6 @@
 # Copy to .dev.vars for `npm run preview` (wrangler dev). In production set
-# these as Worker secrets: Workers & Pages → labsites → Settings → Variables and Secrets.
+# these as Worker secrets: Workers & Pages → labsites → Settings → Runtime variables
+# and secrets (not the Build section, whose values only exist during the build).
 # The recipient and sender (INQUIRY_NOTIFY_TO / INQUIRY_NOTIFY_FROM) are in wrangler.jsonc.
 
 # Email notifications for new inquiries (https://resend.com)
