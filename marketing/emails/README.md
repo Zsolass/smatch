@@ -23,9 +23,9 @@ GoHighLevel has its own field for it):
   not the drag-and-drop builder, and paste the whole file.
 - `{{contact.first_name}}` fills in the greeting. If many contacts have no
   first name, change `Hi {{contact.first_name}},` to `Hello,`.
-- `{{unsubscribe_link}}` in the footer must be GoHighLevel's unsubscribe
-  merge tag. Check it against GoHighLevel's merge-field list; if GoHighLevel
-  adds its own unsubscribe footer, delete that line instead.
+- The footer's Unsubscribe link uses GoHighLevel's merge tag
+  `{{email.unsubscribe_link}}`, inside the link's `href`. Test it with an
+  address you don't need: clicking it unsubscribes that contact.
 - Send a test to yourself (Gmail, Outlook and a phone) before scheduling.
 - The offer is limited to the first 5 customers, and the email can't count
   them. Stop or change the campaign once the fifth lab has signed.
