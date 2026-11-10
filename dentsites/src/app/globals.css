@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+/* `on-dark:` styles an element inside a dark section. */
+@custom-variant on-dark (&:where(.on-dark, .on-dark *));
+
+/* Design tokens. Colours come from src/config/clinic.ts via CSS variables set
+   in layout.tsx; fonts are loaded there too. */
+@theme inline {
+  --color-paper: var(--clinic-paper);
+  --color-paper-deep: var(--clinic-paper-deep);
+  --color-surface: var(--clinic-surface);
+  --color-ink: var(--clinic-ink);
+  --color-ink-soft: var(--clinic-ink-soft);
+  --color-line: var(--clinic-line);
+  --color-accent: var(--clinic-accent);
+  --color-accent-strong: var(--clinic-accent-strong);
+  --color-accent-soft: var(--clinic-accent-soft);
+  --color-sage: var(--clinic-sage);
+  --color-night: var(--clinic-night);
+  --color-night-soft: var(--clinic-night-soft);
+  --color-warm: var(--clinic-warm);
+  --color-danger: #a3301d;
+  --color-danger-soft: #fbebe6;
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-heading), ui-serif, Georgia, "Times New Roman", serif;
+
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 2px rgb(28 34 30 / 0.04), 0 10px 28px -16px rgb(28 34 30 / 0.16);
+  --shadow-lift: 0 2px 4px rgb(28 34 30 / 0.05), 0 28px 56px -24px rgb(28 34 30 / 0.3);
+
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+:root {
+  --header-height: 4.5rem;
+  /* Height of the mobile call/book bar; pages reserve this space at the bottom. */
+  --action-bar-height: 4.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchored sections land below the sticky header. */
+  scroll-padding-top: calc(var(--header-height) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings: the expressive serif, set light and tight. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 380;
+  font-optical-sizing: auto;
+  letter-spacing: -0.022em;
+  line-height: 1.06;
+}
+.display em,
+.accent-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 360;
+  color: var(--color-accent);
+}
+.on-dark .display em,
+.on-dark .accent-italic {
+  color: var(--color-sage);
+}
+
+/* Small uppercase label above headings. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+.on-dark .eyebrow {
+  color: var(--color-sage);
+}
+
+/* The clinic's image shape: an arch, echoing the dental arch. */
+.arch {
+  border-radius: 999px 999px 1.5rem 1.5rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.on-dark :focus-visible {
+  outline-color: var(--color-sage);
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+/* Reveal-on-scroll; content stays visible without JS and with reduced motion. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Before/after comparison: the range input covers the picture, so the pointer,
+   touch and the arrow keys all move the divider; vertical scrolling still works. */
+.compare-range {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: ew-resize;
+  touch-action: pan-y;
+}
+.compare-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 2.75rem;
+  height: 100vh;
+  opacity: 0;
+}
+.compare-range::-moz-range-thumb {
+  width: 2.75rem;
+  height: 100vh;
+  opacity: 0;
+  border: 0;
+}
+.compare-range::-moz-range-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

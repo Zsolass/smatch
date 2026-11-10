@@ -5,6 +5,11 @@ A demo website for a fictional dental lab, **Smatch Demo Lab**, at
 submission flow their dentists would use, and request a quote for their own
 website through the **Inquire** form.
 
+> **Also in this repository:** `dentsites/` holds the demo for dentists and
+> dental clinics (dentsites.smatch.cloud). It is a separate project with its
+> own dependencies, Worker and deploy; see [`dentsites/README.md`](dentsites/README.md).
+> Everything below is about the labsite.
+
 - **Lab website**: hero, services with detail panels, sample cases with a
   lightbox, digital workflow, lab & technology, benefits, FAQ, contact.
 - **Case submission demo** (`/submit-case`): four steps with a live summary,
