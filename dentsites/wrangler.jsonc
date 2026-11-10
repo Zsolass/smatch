@@ -1,0 +1,45 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Must match the Worker project name in the Cloudflare dashboard.
+  "name": "dentsites",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  // `next build` exports the site to ./out before every deploy, preview and `wrangler dev`.
+  "build": { "command": "npm run build", "watch_dir": ["src", "public"] },
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Only the API runs through the Worker; every other path is served straight from ./out.
+    "run_worker_first": ["/api/*"]
+  },
+  // Attaches the custom domain on deploy (Cloudflare creates the DNS record and
+  // certificate). Requires the smatch.cloud zone to be in the same account.
+  "routes": [{ "pattern": "dentsites.smatch.cloud", "custom_domain": true }],
+  "workers_dev": true,
+  "observability": { "enabled": true },
+  // Website inquiries (and, on a live clinic site, consultation requests).
+  // Wrangler creates the database on the first deploy.
+  "d1_databases": [{ "binding": "DB", "database_name": "dentsite-inquiries" }],
+  "ratelimits": [
+    { "name": "INQUIRY_RATE_LIMITER", "namespace_id": "1002", "simple": { "limit": 5, "period": 60 } }
+  ],
+  // Retries notifications that failed or were saved before email was configured.
+  "triggers": { "crons": ["*/15 * * * *"] },
+  // RESEND_API_KEY and ADMIN_TOKEN are secrets and are set in the dashboard, not here.
+  "vars": {
+    // Where website inquiries from clinic owners go (the Smatch team).
+    "INQUIRY_NOTIFY_TO": "office@smatch.cloud",
+    // notify.smatch.cloud is the domain verified in Resend (shared with labsites).
+    "INQUIRY_NOTIFY_FROM": "Smatch Dentsite <dentsite@notify.smatch.cloud>",
+    // Patient consultation requests. "off" on the demo: the form is simulated in
+    // the browser and the endpoint refuses requests. A live clinic site sets this
+    // to "on" and CONSULTATION_NOTIFY_TO to the clinic's inbox (see README).
+    "CONSULTATION_REQUESTS": "off",
+    "CONSULTATION_NOTIFY_TO": ""
+  },
+  // Branch previews (`wrangler preview`, run by Workers Builds for non-main
+  // branches) must have this block. Previews get no database, so the Inquire
+  // form on a preview says it isn't set up and never emails the office.
+  "previews": {}
+}

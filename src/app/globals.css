@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* dentsites/ is a separate project: keep its class names out of this stylesheet. */
+@source not "../../dentsites";
+
 /* Brand colours come from src/config/lab.ts via CSS variables set in layout.tsx. */
 @theme inline {
   --color-paper: var(--lab-paper);

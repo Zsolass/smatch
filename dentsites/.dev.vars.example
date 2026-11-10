@@ -1,0 +1,13 @@
+# Copy to .dev.vars for `npm run preview` (wrangler dev). In production set
+# these as Worker secrets: Workers & Pages → dentsites → Settings → Runtime variables
+# and secrets (not the Build section, whose values only exist during the build).
+# The recipients and sender (INQUIRY_NOTIFY_TO / INQUIRY_NOTIFY_FROM /
+# CONSULTATION_NOTIFY_TO) are in wrangler.jsonc.
+
+# Email notifications (https://resend.com)
+RESEND_API_KEY=
+# Optional: another Resend-compatible API base URL
+# RESEND_API_URL=https://api.resend.com
+
+# Long random string; allows the admin endpoints (GET /api/inquiries, …)
+ADMIN_TOKEN=
