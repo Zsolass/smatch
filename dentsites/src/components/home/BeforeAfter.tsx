@@ -77,7 +77,7 @@ export function BeforeAfter({ before, after, label, sizes }: Props) {
               setSmooth(true);
               setPos(view.value);
             }}
-            className="h-11 rounded-full border border-current/25 px-5 text-[0.9375rem] font-semibold transition-colors hover:border-current/60 aria-pressed:border-transparent aria-pressed:bg-accent aria-pressed:text-white on-dark:aria-pressed:bg-paper on-dark:aria-pressed:text-night"
+            className="h-11 rounded-full border border-current/25 px-5 text-[0.9375rem] font-semibold transition-colors hover:border-current/60 aria-pressed:border-transparent aria-pressed:bg-accent aria-pressed:text-white on-dark:aria-pressed:bg-pop on-dark:aria-pressed:text-night"
           >
             {view.label}
           </button>

@@ -102,3 +102,27 @@ test.describe("Clinic-owner journey: Inquire", () => {
     await expect(page.getByText(SUCCESS)).toHaveCount(0);
   });
 });
+
+test.describe("Inquire is within reach on the patient pages", () => {
+  for (const width of [375, 1440]) {
+    test(`header button, banner and closing call-out at ${width}px`, async ({ browser }) => {
+      const context = await browser.newContext({ viewport: { width, height: 800 } });
+      const page = await context.newPage();
+      for (const path of ["/", "/treatments", "/treatments/dental-implants", "/privacy"]) {
+        await page.goto(path);
+        // Beside "Book a consultation" in the header, without opening the menu.
+        const header = page.getByRole("banner").getByRole("link", { name: "Inquire", exact: true });
+        await expect(header, path).toBeVisible();
+        await expect(header).toHaveAttribute("href", /\/get-this-website\/?$/);
+        await expect(page.getByRole("link", { name: /Get a website like this/ }).first()).toBeVisible();
+        await expect(page.getByRole("heading", { name: /Run a dental clinic/ })).toBeVisible();
+      }
+      await page.goto("/");
+      await expect(page.getByRole("complementary", { name: "For clinic owners" }).getByRole("link", { name: "Inquire" })).toBeVisible();
+      await page.getByRole("banner").getByRole("link", { name: "Inquire", exact: true }).click();
+      await expect(page).toHaveURL(/\/get-this-website\/?$/);
+      await expect(page.locator("#inquire form")).toBeVisible();
+      await context.close();
+    });
+  }
+});

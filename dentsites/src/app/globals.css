@@ -19,6 +19,8 @@
   --color-night: var(--clinic-night);
   --color-night-soft: var(--clinic-night-soft);
   --color-warm: var(--clinic-warm);
+  --color-pop: var(--clinic-pop);
+  --color-coral: var(--clinic-coral);
   --color-danger: #a3301d;
   --color-danger-soft: #fbebe6;
 
@@ -30,6 +32,21 @@
   --shadow-lift: 0 2px 4px rgb(28 34 30 / 0.05), 0 28px 56px -24px rgb(28 34 30 / 0.3);
 
   --animate-fade-up: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-spin-slow: spin 22s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes fade-up {
@@ -80,10 +97,16 @@ body {
   font-style: italic;
   font-weight: 360;
   color: var(--color-accent);
+  /* A highlighter stroke under the accent words. */
+  background: linear-gradient(transparent 62%, var(--color-pop) 62%, var(--color-pop) 92%, transparent 92%);
+  padding-inline: 0.08em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 .on-dark .display em,
 .on-dark .accent-italic {
-  color: var(--color-sage);
+  color: var(--color-pop);
+  background: none;
 }
 
 /* Small uppercase label above headings. */
@@ -105,7 +128,7 @@ body {
   opacity: 0.6;
 }
 .on-dark .eyebrow {
-  color: var(--color-sage);
+  color: var(--color-pop);
 }
 
 /* The clinic's image shape: an arch, echoing the dental arch. */

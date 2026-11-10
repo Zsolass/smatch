@@ -7,6 +7,8 @@ import { clinic } from "@/config/clinic";
 import { enabledTreatments } from "@/config/treatments";
 import { formatMoney } from "@/lib/format";
 
+const chips = ["bg-pop", "bg-coral", "bg-sage", "bg-accent-soft", "bg-coral", "bg-pop"];
+
 /** "Choose by patient need": one card per treatment the clinic offers. */
 export function NeedCards() {
   if (!enabledTreatments.length) return null;
@@ -21,15 +23,15 @@ export function NeedCards() {
             <li key={t.id} data-reveal style={{ "--reveal-delay": `${(i % 3) * 70}ms` } as React.CSSProperties}>
               <Link
                 href={`/treatments/${t.id}`}
-                className="group flex h-full items-start gap-4 rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[var(--shadow-lift)] sm:flex-col sm:gap-0 sm:p-7"
+                className="group flex h-full items-start gap-4 rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:border-accent hover:bg-accent hover:shadow-[var(--shadow-lift)] sm:flex-col sm:gap-0 sm:p-7"
               >
-                <span className="grid size-12 shrink-0 place-items-center rounded-full bg-accent-soft text-accent transition-colors duration-300 group-hover:bg-accent group-hover:text-white">
+                <span className={`grid size-12 shrink-0 place-items-center rounded-full text-night transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 sm:size-14 ${chips[i % chips.length]}`}>
                   <Icon name={t.need.icon} className="size-6" />
                 </span>
                 <div className="flex min-w-0 flex-1 flex-col sm:mt-6 sm:w-full">
-                  <h3 className="display text-[1.375rem] leading-[1.15] text-ink sm:text-[1.625rem]">{t.need.title}</h3>
-                  <p className="mt-2 flex-1 text-[0.9375rem] leading-relaxed text-ink-soft sm:mt-3">{t.need.description}</p>
-                  <p className="mt-3 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-accent sm:mt-6 sm:border-t sm:border-line sm:pt-4">
+                  <h3 className="display text-[1.375rem] leading-[1.15] text-ink transition-colors group-hover:text-white sm:text-[1.625rem]">{t.need.title}</h3>
+                  <p className="mt-2 flex-1 text-[0.9375rem] leading-relaxed text-ink-soft transition-colors group-hover:text-white/80 sm:mt-3">{t.need.description}</p>
+                  <p className="mt-3 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-accent transition-colors group-hover:border-white/25 group-hover:text-pop sm:mt-6 sm:border-t sm:border-line sm:pt-4">
                     {t.name}
                     <Arrow className="transition-transform duration-300 group-hover:translate-x-1" />
                   </p>
@@ -49,7 +51,7 @@ export function NeedCards() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3 lg:flex-col">
-            <BookingLink placement="needs" variant="light" size="lg" arrow />
+            <BookingLink placement="needs" variant="pop" size="lg" arrow />
             <CallLink placement="needs" variant="outline-light" size="lg" />
           </div>
         </div>

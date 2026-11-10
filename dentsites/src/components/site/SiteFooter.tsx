@@ -83,8 +83,8 @@ export function SiteFooter() {
           </p>
           <p className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {siteConfig.demo && (
-              <Link href={siteConfig.inquiry.path} className="underline underline-offset-2 hover:text-white">
-                {siteConfig.demoBanner.linkLabel}
+              <Link href={siteConfig.inquiry.path} className="font-semibold text-pop underline underline-offset-2 hover:text-white">
+                {siteConfig.demoBanner.linkLabel} →
               </Link>
             )}
             <a href={siteConfig.smatch.url} className="inline-flex items-center gap-1.5 hover:text-white" rel="noopener">

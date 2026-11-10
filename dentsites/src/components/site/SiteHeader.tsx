@@ -7,6 +7,7 @@ import { Icon } from "@/components/ui/Icon";
 import { clinic, hasMultipleLocations, mainLocation } from "@/config/clinic";
 import { enabledTreatments } from "@/config/treatments";
 import { BookingLink } from "./BookingLink";
+import { InquireLink } from "./InquireLink";
 import { Logo } from "./Logo";
 
 /** Practical information above the header: only what the clinic has supplied. */
@@ -38,18 +39,18 @@ function InfoBar() {
             )}
           </>
         )}
-        <a href={loc.phoneHref} className="ml-auto inline-flex items-center gap-1.5 font-semibold text-ink hover:text-accent xl:hidden" data-analytics="call_click" data-placement="info-bar">
+        <a href={loc.phoneHref} className="ml-auto inline-flex items-center gap-1.5 font-semibold text-ink hover:text-accent min-[1560px]:hidden" data-analytics="call_click" data-placement="info-bar">
           <Icon name="phone" className="size-4" />
           <span className="sr-only">Call </span>
           {loc.phone}
         </a>
-        <span className="ml-auto hidden xl:inline">{clinic.hero.points[0]}</span>
+        <span className="ml-auto hidden min-[1560px]:inline">{clinic.hero.points[0]}</span>
       </div>
     </div>
   );
 }
 
-const navLink = "rounded-full px-3.5 py-2.5 text-base text-ink-soft transition-colors hover:bg-ink/5 hover:text-ink xl:px-4";
+const navLink = "rounded-full px-3 py-2.5 text-base whitespace-nowrap text-ink-soft transition-colors hover:bg-ink/5 hover:text-ink";
 
 /** "Treatments" opens a panel that lists every treatment page. */
 function TreatmentsMenu({ label, href }: { label: string; href: string }) {
@@ -113,7 +114,7 @@ export function SiteHeader({ actionBar = true }: { actionBar?: boolean }) {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    const onResize = () => window.matchMedia("(min-width: 1024px)").matches && setOpen(false);
+    const onResize = () => window.matchMedia("(min-width: 1280px)").matches && setOpen(false);
     window.addEventListener("keydown", onKey);
     window.addEventListener("resize", onResize);
     return () => {
@@ -134,7 +135,7 @@ export function SiteHeader({ actionBar = true }: { actionBar?: boolean }) {
       >
         <div className="mx-auto flex h-[var(--header-height)] max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
           <Logo className="min-w-0" />
-          <nav aria-label="Main" className="ml-auto hidden lg:block">
+          <nav aria-label="Main" className="ml-auto hidden xl:block">
             <ul className="flex items-center">
               {clinic.nav.map((item) =>
                 item.href === "/#treatments" && enabledTreatments.length > 0 ? (
@@ -150,7 +151,7 @@ export function SiteHeader({ actionBar = true }: { actionBar?: boolean }) {
             </ul>
           </nav>
           <div className="ml-auto flex shrink-0 items-center gap-1.5 lg:ml-3">
-            <a href={loc.phoneHref} className="mr-2 hidden items-center gap-2 text-base font-semibold whitespace-nowrap text-ink hover:text-accent xl:inline-flex" data-analytics="call_click" data-placement="header">
+            <a href={loc.phoneHref} className="mr-2 hidden items-center gap-2 text-base font-semibold whitespace-nowrap text-ink hover:text-accent min-[1560px]:inline-flex" data-analytics="call_click" data-placement="header">
               <Icon name="phone" className="size-[1.125rem] text-accent" />
               <span className="sr-only">Call </span>
               {loc.phone}
@@ -159,9 +160,10 @@ export function SiteHeader({ actionBar = true }: { actionBar?: boolean }) {
             <span className={actionBar ? "hidden sm:contents" : "contents"}>
               <BookingLink placement="header" size="sm" className="max-[400px]:px-3.5 max-[400px]:text-sm" />
             </span>
+            <InquireLink size="sm" className="px-4 max-[400px]:px-3.5 max-[400px]:text-sm" />
             <button
               type="button"
-              className="grid size-11 place-items-center rounded-full text-ink hover:bg-ink/5 lg:hidden"
+              className="grid size-11 place-items-center rounded-full text-ink hover:bg-ink/5 xl:hidden"
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={() => setOpen((o) => !o)}
@@ -173,7 +175,7 @@ export function SiteHeader({ actionBar = true }: { actionBar?: boolean }) {
             </button>
           </div>
         </div>
-        <div id="mobile-menu" hidden={!open} className="max-h-[calc(100dvh-var(--header-height))] overflow-y-auto border-t border-line/70 bg-paper lg:hidden">
+        <div id="mobile-menu" hidden={!open} className="max-h-[calc(100dvh-var(--header-height))] overflow-y-auto border-t border-line/70 bg-paper xl:hidden">
           <nav aria-label="Mobile" className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
             <ul className="grid gap-1">
               {clinic.nav.map((item) => (

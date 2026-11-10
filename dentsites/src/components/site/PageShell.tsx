@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { DemoBanner } from "./DemoBanner";
 import { MobileActionBar } from "./MobileActionBar";
+import { OwnerCallout } from "./OwnerCallout";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 import { StructuredData } from "./StructuredData";
@@ -26,6 +27,7 @@ export function PageShell({ children, mainClassName = "", treatment, actionBar =
       <main id="main" className={mainClassName}>
         {children}
       </main>
+      {actionBar && <OwnerCallout />}
       <SiteFooter />
       {actionBar && (
         <>

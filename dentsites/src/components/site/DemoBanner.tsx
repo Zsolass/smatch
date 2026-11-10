@@ -5,15 +5,15 @@ import { siteConfig } from "@/config/site";
 export function DemoBanner() {
   if (!siteConfig.demo) return null;
   return (
-    <div className="on-dark bg-night text-white/75">
-      <div className="mx-auto flex max-w-7xl items-center justify-center px-4 py-2 text-center text-[0.8125rem] sm:px-6">
-        <p>
+    <div className="bg-pop text-night">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-4 gap-y-1.5 px-4 py-2.5 text-center text-[0.9375rem] sm:px-6">
+        <p className="font-medium">
           <span className="sr-only">Notice: </span>
-          {siteConfig.demoBanner.text}{" "}
-          <Link href={siteConfig.inquiry.path} className="font-semibold whitespace-nowrap text-white underline decoration-white/35 underline-offset-4 hover:decoration-white">
-            {siteConfig.demoBanner.linkLabel} →
-          </Link>
+          {siteConfig.demoBanner.text}
         </p>
+        <Link href={siteConfig.inquiry.path} className="inline-flex h-9 items-center rounded-full bg-night px-4 text-sm font-semibold whitespace-nowrap text-white transition-transform hover:-translate-y-0.5">
+          {siteConfig.demoBanner.linkLabel} →
+        </Link>
       </div>
     </div>
   );

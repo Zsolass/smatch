@@ -6,6 +6,7 @@ import { FaqList } from "@/components/home/Faq";
 import { FeeList } from "@/components/home/FeeList";
 import { TeamCard } from "@/components/home/TeamCard";
 import { BookingLink, CallLink } from "@/components/site/BookingLink";
+import { InquireLink } from "@/components/site/InquireLink";
 import { Arrow } from "@/components/ui/Button";
 import { CheckBullet, Icon } from "@/components/ui/Icon";
 import { Picture } from "@/components/ui/Picture";
@@ -79,6 +80,7 @@ export function TreatmentPage({ treatment: t }: { treatment: Treatment }) {
                 <>
                   <BookingLink placement="treatment-hero" treatment={t.id} size="lg" arrow />
                   <CallLink placement="treatment-hero" size="lg" />
+                  <InquireLink size="lg" />
                 </>
               )}
             </div>
@@ -109,7 +111,7 @@ export function TreatmentPage({ treatment: t }: { treatment: Treatment }) {
             </div>
             <ul className="flex flex-wrap content-start gap-2.5" data-reveal>
               {t.concerns.map((c) => (
-                <li key={c} className="rounded-full border border-line bg-paper px-5 py-2.5 text-[0.9375rem] text-ink">
+                <li key={c} className="rounded-full border border-line bg-paper px-5 py-2.5 text-[0.9375rem] text-ink transition-colors hover:border-accent hover:bg-pop">
                   {c}
                 </li>
               ))}

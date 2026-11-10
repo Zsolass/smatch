@@ -28,7 +28,7 @@ export function CaseGallery({ cases, treatmentLinks = true }: { cases: ResultCas
                   type="button"
                   aria-pressed={i === index}
                   onClick={() => setIndex(i)}
-                  className="group flex w-full items-baseline gap-4 rounded-2xl border border-white/12 px-5 py-3.5 text-left transition-colors hover:border-white/35 aria-pressed:border-sage/70 aria-pressed:bg-white/8"
+                  className="group flex w-full items-baseline gap-4 rounded-2xl border border-white/12 px-5 py-3.5 text-left transition-colors hover:border-white/35 aria-pressed:border-pop aria-pressed:bg-white/10"
                 >
                   <span className="font-display text-lg text-sage italic" aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}
@@ -58,7 +58,7 @@ export function CaseGallery({ cases, treatmentLinks = true }: { cases: ResultCas
             </div>
           </dl>
           {treatmentLinks && (
-            <Link href={`/treatments/${current.treatment}`} className="mt-6 inline-flex items-center gap-2 font-semibold text-sage underline-offset-4 hover:underline">
+            <Link href={`/treatments/${current.treatment}`} className="mt-6 inline-flex items-center gap-2 font-semibold text-pop underline-offset-4 hover:underline">
               About this treatment <Arrow />
             </Link>
           )}
