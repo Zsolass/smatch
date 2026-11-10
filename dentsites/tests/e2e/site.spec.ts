@@ -120,12 +120,12 @@ test.describe("Site quality", () => {
     for (const href of await calls.evaluateAll((els) => els.map((a) => a.getAttribute("href")))) expect(href).toBe(mainLocation.phoneHref);
     // Keep the page in place for the call link: only the reporting is under test.
     await page.evaluate(() => document.addEventListener("click", (e) => (e.target as Element).closest("a[href^='tel:']") && e.preventDefault(), true));
-    await page.getByRole("banner").getByRole("link", { name: `Call ${mainLocation.phone}` }).click();
+    await page.locator('a[data-placement="info-bar"]').click();
     await page.getByRole("banner").getByRole("link", { name: "Book a consultation" }).click();
     await expect(page).toHaveURL(/\/book\/?$/);
     // Each event says what happened and where: nothing else.
     expect(await events()).toEqual([
-      { event: "call_click", placement: "header" },
+      { event: "call_click", placement: "info-bar" },
       { event: "booking_click", placement: "header" },
     ]);
   });

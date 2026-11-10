@@ -51,8 +51,11 @@ export const siteConfig = {
   analytics: { enabled: false },
 
   demoBanner: {
-    text: "Demo clinic website by Smatch, with sample content.",
+    text: "This is a demo clinic website by Smatch. Run a clinic?",
     linkLabel: "Get a website like this",
+    /** Short heading and text for the owner call-outs on patient pages. */
+    calloutTitle: "Run a dental clinic? Get a website *like this*.",
+    calloutText: "Everything you see here is a demo by Smatch. We build the same for your clinic, with your brand, team, treatments and fees.",
   },
 
   smatch: {

@@ -26,7 +26,7 @@ export function ConsultationFeeCard({ treatment, placement }: { treatment?: stri
         ))}
       </ul>
       <p className="mt-5 text-sm text-white/65">{c.note}</p>
-      <BookingLink placement={placement} treatment={treatment} variant="light" className="mt-7 w-full" />
+      <BookingLink placement={placement} treatment={treatment} variant="pop" className="mt-7 w-full" />
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
-export type ButtonVariant = "primary" | "secondary" | "ghost" | "light" | "outline-light";
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "light" | "outline-light" | "inquire" | "pop";
 export type ButtonSize = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap transition-[background-color,color,border-color,box-shadow,transform] duration-200 active:translate-y-px disabled:pointer-events-none disabled:opacity-55 select-none";
+  "inline-flex items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap transition-[background-color,color,border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:pointer-events-none disabled:opacity-55 select-none";
 
 const variants: Record<ButtonVariant, string> = {
   primary: "bg-accent text-white shadow-[0_10px_24px_-14px_var(--color-accent)] hover:bg-accent-strong",
@@ -13,6 +13,9 @@ const variants: Record<ButtonVariant, string> = {
   ghost: "text-ink hover:bg-ink/5",
   light: "bg-paper text-night hover:bg-white",
   "outline-light": "border border-white/35 text-white hover:border-white/70 hover:bg-white/10",
+  // The clinic-owner action: coral, so it is never mistaken for booking.
+  inquire: "bg-coral text-night shadow-[0_10px_24px_-14px_var(--color-coral)] hover:brightness-105",
+  pop: "bg-pop text-night hover:brightness-105",
 };
 
 // Every size is at least 44px tall: a comfortable touch target.

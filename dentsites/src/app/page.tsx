@@ -3,6 +3,7 @@ import { Costs } from "@/components/home/Costs";
 import { Faq } from "@/components/home/Faq";
 import { FirstVisit } from "@/components/home/FirstVisit";
 import { Hero } from "@/components/home/Hero";
+import { Marquee } from "@/components/home/Marquee";
 import { NeedCards } from "@/components/home/NeedCards";
 import { Results } from "@/components/home/Results";
 import { Team } from "@/components/home/Team";
@@ -18,6 +19,7 @@ export default function HomePage() {
   return (
     <PageShell>
       <Hero />
+      <Marquee />
       <TrustStrip />
       <NeedCards />
       <Results />

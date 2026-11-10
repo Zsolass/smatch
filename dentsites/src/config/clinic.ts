@@ -130,6 +130,8 @@ export const clinic = {
     night: "#13241f",
     nightSoft: "#1c342d",
     warm: "#b4744a",
+    pop: "#dcf26e", // lime highlight: marker under accent words, badges, the banner
+    coral: "#f47c5c", // the clinic-owner (Inquire) colour, distinct from booking
   },
 
   // One entry per location. Location-specific details (and the location
