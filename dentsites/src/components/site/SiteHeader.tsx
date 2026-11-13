@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Arrow } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { clinic, hasMultipleLocations, mainLocation } from "@/config/clinic";
+import { siteConfig } from "@/config/site";
 import { enabledTreatments } from "@/config/treatments";
 import { BookingLink } from "./BookingLink";
 import { InquireLink } from "./InquireLink";
@@ -124,6 +126,9 @@ export function SiteHeader({ actionBar = true }: { actionBar?: boolean }) {
   }, [open]);
 
   const loc = mainLocation;
+  const pathname = usePathname();
+  const onBookingPage = pathname.startsWith(siteConfig.booking.path);
+  const onInquiryPage = pathname.startsWith(siteConfig.inquiry.path);
 
   return (
     <>
@@ -157,10 +162,11 @@ export function SiteHeader({ actionBar = true }: { actionBar?: boolean }) {
               {loc.phone}
             </a>
             {/* On phones, booking and calling stay visible in the bar at the bottom of the screen instead. */}
-            <span className={actionBar ? "hidden sm:contents" : "contents"}>
+            {/* Each button is left out where it would only lead to the page you are on. */}
+            <span className={actionBar || onBookingPage ? "hidden sm:contents" : "contents"}>
               <BookingLink placement="header" size="sm" className="max-[400px]:px-3.5 max-[400px]:text-sm" />
             </span>
-            <InquireLink size="sm" className="px-4 max-[400px]:px-3.5 max-[400px]:text-sm" />
+            {!onInquiryPage && <InquireLink size="sm" className="px-4 max-[400px]:px-3.5 max-[400px]:text-sm" />}
             <button
               type="button"
               className="grid size-11 place-items-center rounded-full text-ink hover:bg-ink/5 xl:hidden"
