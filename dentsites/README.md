@@ -192,6 +192,7 @@ and a section with no content is not rendered.
 | Images (`<name>-<width>.webp`, widths listed in the config) | `public/images/` |
 | Team portraits | set `photo` on each team member |
 | Sharing image and Apple touch icon | `npm run render:og` |
+| Images for the offer email (`marketing/emails/dentsites-offer.html`) | `public/email/`, rebuilt with `npm run render:email` while `npm run preview` is running |
 
 Disabling a treatment removes its page, its need card, its form option, its
 fees and its cases. Unit tests (`tests/unit/config.test.ts`) fail when an id in
